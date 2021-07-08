@@ -1,0 +1,19 @@
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    name: Bump version when changes are made to main branch
+    steps:
+    - id: bump
+      uses: zwaldowski/match-label-action@v1
+      with:
+        allowed: major,minor,patch
+    - uses: zwaldowski/semver-release-action@v1
+      with:
+        bump: ${{ steps.bump.outputs.match }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
