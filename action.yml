@@ -9,6 +9,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Mik Debug
+      run: echo ${{ inputs.reviewdog_token }}
+      shell: bash
     - name: Install phpcs
       run: $GITHUB_ACTION_PATH/install.sh
       shell: bash
