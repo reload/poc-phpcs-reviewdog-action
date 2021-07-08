@@ -1,11 +1,11 @@
-name: 'Installs '
-description: 'Greet someone'
+name: 'Setup reviewdog'
+description: '🐶 This action sets up reviewdog'
 inputs:
   reviewdog_version:
     description: 'reviewdog version. [latest,nightly,vX.Y.Z]'
     default: 'latest'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - run: $GITHUB_ACTION_PATH/install.sh
       shell: bash
@@ -17,12 +17,8 @@ runs:
         reviewdog -h 2>&1 || true
         echo "::endgroup::"
       shell: bash
-    - name: Run phpcs
-      run: |
-        vendor/bin/phpcs --report=checkstyle | ./reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
-      env:
-        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+# Ref: https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: 'terminal'
   color: 'gray-dark'
