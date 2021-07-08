@@ -9,21 +9,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Mik Debug
-      run: echo ${{ inputs.reviewdog_token }}
-      shell: bash
     - name: Install phpcs
       run: $GITHUB_ACTION_PATH/install.sh
       shell: bash
       env:
         REVIEWDOG_VERSION: ${{ inputs.reviewdog_version }}
         REVIEWDOG_TEMPDIR: ${{ runner.temp }}
-    - name: Verify phpcs
-      run: |
-        echo "::group::📖 reviewdog -h"
-        reviewdog -h 2>&1 || true
-        echo "::endgroup::"
-      shell: bash
     - name: Run phpcs and report to reviewdog
       run: |
         $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
