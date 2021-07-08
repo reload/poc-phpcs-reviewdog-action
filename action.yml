@@ -22,6 +22,7 @@ runs:
     - name: Run phpcs and report to reviewdog
       run: |
         $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
+      shell: bash
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
