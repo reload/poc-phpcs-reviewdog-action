@@ -18,6 +18,7 @@ runs:
     - name: Run phpcs and report to reviewdog
       run: |
         set -x
+        set +o
         phpcs --config-set ignore_errors_on_exit 1
         phpcs --config-set ignore_warnings_on_exit 1
         $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
