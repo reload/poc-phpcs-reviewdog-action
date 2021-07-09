@@ -17,7 +17,7 @@ runs:
         REVIEWDOG_TEMPDIR: ${{ runner.temp }}
     - name: Run phpcs and report to reviewdog
       run: |
-        $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
+        $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check -fail-on-error=false
       shell: bash
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.reviewdog_token }}
