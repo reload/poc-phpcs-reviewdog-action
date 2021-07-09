@@ -17,6 +17,7 @@ runs:
         REVIEWDOG_TEMPDIR: ${{ runner.temp }}
     - name: Run phpcs and report to reviewdog
       run: |
+        set -x
         $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
         cat /tmp/phpcs-report
         cat /tmp/phpcs-report | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
