@@ -18,12 +18,9 @@ runs:
     - name: Run phpcs and report to reviewdog
       run: |
         set -x
-        php -v
-        pwd
-        ls
-        echo $(composer config bin-dir)/phpcs
-        ls $(composer config bin-dir)/phpcs
-        php $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
+        phpcs --config-set ignore_errors_on_exit 1
+        phpcs --config-set ignore_warnings_on_exit 1
+        $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
         cat /tmp/phpcs-report
         cat /tmp/phpcs-report | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
         echo "exit code is $?"
