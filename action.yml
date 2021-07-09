@@ -20,6 +20,7 @@ runs:
         set -x
         pwd
         ls
+        echo $(composer config bin-dir)/phpcs
         ls $(composer config bin-dir)/phpcs
         $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
         cat /tmp/phpcs-report
