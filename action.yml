@@ -11,20 +11,16 @@ runs:
   steps:
     - name: Install phpcs
       run: $GITHUB_ACTION_PATH/install.sh
+      shell: bash
       env:
         REVIEWDOG_VERSION: ${{ inputs.reviewdog_version }}
         REVIEWDOG_TEMPDIR: ${{ runner.temp }}
     - name: Run phpcs and report to reviewdog
       run: |
-        echo 'NO shell: bash'
-        set -x
-        set +o
+        set +o pipefail
         phpcs --config-set ignore_errors_on_exit 1
         phpcs --config-set ignore_warnings_on_exit 1
-        $(composer config bin-dir)/phpcs --report=checkstyle > /tmp/phpcs-report
-        cat /tmp/phpcs-report
-        cat /tmp/phpcs-report | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
-        echo "exit code is $?"
+        $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
       shell: bash
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.reviewdog_token }}
