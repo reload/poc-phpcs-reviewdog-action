@@ -16,7 +16,7 @@ runs:
         REVIEWDOG_TEMPDIR: ${{ runner.temp }}
     - name: Run phpcs and report to reviewdog
       run: |
-        echo 'hello mikkel'
+        echo 'NO shell: bash'
         set -x
         set +o
         phpcs --config-set ignore_errors_on_exit 1
