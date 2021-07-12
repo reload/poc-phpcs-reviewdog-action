@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: reviewdog/action-depup
+      - uses: reviewdog/action-depup@master
         with:
           file: action.yml
           version_name: REVIEWDOG_VERSION
