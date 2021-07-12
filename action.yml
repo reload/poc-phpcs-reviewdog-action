@@ -20,7 +20,8 @@ runs:
         set +o pipefail
         phpcs --config-set ignore_errors_on_exit 1
         phpcs --config-set ignore_warnings_on_exit 1
-        $(composer config bin-dir)/phpcs --report=checkstyle | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check
+        $(composer config bin-dir)/phpcs --report=checkstyle \
+        | reviewdog -f=checkstyle -name=phpcs -reporter=github-pr-check -fail-on-error=true
       shell: bash
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.reviewdog_token }}
